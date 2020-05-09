@@ -1,0 +1,13 @@
+.nc-icon {
+	display: inline-block;
+	height: 64px;
+	width: 64px;
+	background-image: url(../img/nc-icons.svg);
+	background-repeat: no-repeat;
+}
+.nc-icon.single-01-glyph-64 {
+	background-position: -0px -0px;
+}
+.nc-icon.single-01-glyph-64.active {
+	background-position: -0px -32px;
+}

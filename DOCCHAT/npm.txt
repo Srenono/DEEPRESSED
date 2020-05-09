@@ -1,0 +1,68 @@
+npm install
+npm i --save firebase 
+npm i moment
+npm i react-loading
+npm i react-toastify
+npm i react-router-dom
+
+______________________________________________________________
+
+
+
+├── package.json
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   └── manifest.json
+└── src
+    ├── index.js
+    ├── assets
+    │   ├── css
+    │   │   ├── blk-design-system-react.css
+    │   │   ├── blk-design-system-react.css.map
+    │   │   ├── blk-design-system-react.min.css
+    │   │   └── nucleo-icons.css
+    │   ├── demo
+    │   │   └── demo.css
+    │   ├── fonts
+    │   │   ├── nucleo.eot
+    │   │   ├── nucleo.ttf
+    │   │   ├── nucleo.woff
+    │   │   └── nucleo.woff2
+    │   ├── img
+    │   └── scss
+    │       ├── blk-design-system-react
+    │       │   ├── bootstrap
+    │       │   │   ├── mixins
+    │       │   │   └── utilities
+    │       │   ├── custom
+    │       │   │   ├── cards
+    │       │   │   ├── mixins
+    │       │   │   ├── sections
+    │       │   │   ├── utilities
+    │       │   │   └── vendor
+    │       │   └── react
+    │       │       └── react-differences.scss
+    │       └── blk-design-system-react.scss
+    ├── components
+    │   ├── __PolicyContent.js
+    │   ├── __BasicInfoContent.js
+    │   ├── __PsyInfoContent.js
+    │   ├── __MainContent.js
+    │   └── __ChatContent.js
+    │   ├── Navbars
+    │   │   ├── IndexNavbar.js
+    │   │   ├── CancelNavbar.js
+    │   │   ├── BackNavbar.js
+    │   │   └── ExamplesNavbar.js
+    ├── conf
+    │   ├── MyFirebase.js
+    │   └── Root.js
+    └── views
+        ├── Home.js
+        ├── Policy.js
+        ├── BasicInfo.js
+        ├── PsyInfo.js
+        ├── Main.js
+        ├── Profile.je
+        └── Chat.js
