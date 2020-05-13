@@ -1,36 +1,28 @@
 {
-  "name": "blk-design-system-react",
-  "version": "1.1.0",
-  "description": "React version of BLK Design System by Creative Tim",
+  "name": "deepressed",
+  "version": "1.0.1",
+  "description": "DEEPRESSED APP",
   "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/creativetimofficial/blk-design-system-react.git"
   },
   "keywords": [
-    "react",
-    "reactjs",
-    "blk",
-    "blk-react",
-    "design",
-    "design-react",
+    "psyc",
+    "psychologue",
+    "free",
+    "session",
+    "online",
+    "doctor",
     "system",
-    "system-react",
-    "design-system",
-    "design-system-react",
-    "blk-design",
-    "blk-design-react",
-    "blk-system",
-    "blk-system-react",
-    "blk-design-system",
-    "blk-design-system-react"
+    "deepressed"
   ],
-  "author": "Creative Tim",
+  "author": "MOUAD LOUHICHI",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/creativetimofficial/blk-design-system-react/issues"
   },
-  "homepage": "https://demos.creative-tim.com/blk-design-system-react/#/",
+  "homepage": "/",
   "dependencies": {
     "chart.js": "2.9.3",
     "classnames": "2.2.6",
@@ -54,14 +46,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && gulp licenses",
+    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
-    "compile-sass": "node-sass src/assets/scss/blk-design-system-react.scss src/assets/css/blk-design-system-react.css",
-    "minify-sass": "node-sass src/assets/scss/blk-design-system-react.scss src/assets/css/blk-design-system-react.min.css --output-style compressed",
-    "map-sass": "node-sass src/assets/scss/blk-design-system-react.scss src/assets/css/blk-design-system-react.css --source-map true"
-  },
+    "eject": "react-scripts eject"  },
   "eslintConfig": {
     "extends": "react-app"
   },

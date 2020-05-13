@@ -2,10 +2,10 @@ import React from "react";
 import {withRouter} from 'react-router-dom'
 import 'assets/css/Main.css'
 import CancelNavbar from "../components/Navbars/CancelNavbar"
-import BasicInfoContent from "components/__BasicInfoContent";
+import PhoneSigninContent from "components/__PhoneSigninContent";
 
 
-class BasicInfoForm extends React.Component {
+class PhoneSignin extends React.Component {
 
   render() {
 
@@ -13,10 +13,10 @@ class BasicInfoForm extends React.Component {
       <>
 
       <CancelNavbar />
-   <BasicInfoContent/>
+   <PhoneSigninContent/>
    </>
     );
   }
 }
 
-  export default withRouter(BasicInfoForm);
+  export default withRouter(PhoneSignin);

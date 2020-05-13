@@ -3,16 +3,16 @@ import ReactLoading from 'react-loading'
 import {withRouter} from 'react-router-dom'
 import {myFirebase, myFirestore, myStorage} from  '../conf/MyFirebase'
 import {AppString} from '../assets/data/Const'
-import logout from '../assets/img/ic_logout.png'
 import 'assets/css/Main.css'
-import UserPicM from "../assets/img/userPicM.png";
+
+
 
 // core components
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 
 // sections for this page/view
 
-import { Container, Row, Col ,Button } from "reactstrap";
+import { Container, Row, Col,Card,CardBody,Button} from "reactstrap";
 
 
 
@@ -26,6 +26,7 @@ class Profile extends React.Component {
             fullname: localStorage.getItem(AppString.FULLNAME),
             sexe: localStorage.getItem(AppString.SEXE),
             dateOfBirh: localStorage.getItem(AppString.DATE_OF_BIRTH),
+            number: localStorage.getItem(AppString.NUMBER),
             firstQuestion: localStorage.getItem(AppString.FIRST_QUESTION),
             secondQuestion: localStorage.getItem(AppString.SECOND_QUESTION),
             thridQuestion: localStorage.getItem(AppString.THIRD_QUESTION),
@@ -164,39 +165,112 @@ class Profile extends React.Component {
     
 		<Container >
 
-			  <Row className="justify-content-md-center">
+			<Row  style={{height:"380px" }}className="justify-content-md-center">
 
             <Col className="text-center" lg="8" md="12">
             <div >
             <img
             alt="..."
             className="img-fluid rounded-circle shadow-lg"
-            src={UserPicM}
-            style={{ width: "150px",marginTop:"100px" }}
+            src={require('../assets/img/userPic'+this.state.sexe+'.png')}
+            style={{ width: "120px",marginTop:"100px" }}
           />
           <h2 style={{ color: "#616161",textTransform:"uppercase",fontWeight:"600",   marginTop:"10px"}}>{this.state.fullname}, 24 </h2>
-              <div className="root">
-                {/* Header */}
-                <div >
-                    
-                    <img
-                        className="icLogout"
-                        alt="An icon logout"
-                        src={logout}
-                        onClick={this.doLogout}
-                        
-                    /> 
-                    
-                </div>
-                </div>
+              
                 </div>
                 </Col>
 
 
           </Row>
-		</Container>
+          <Row className="justify-content-md-center" style={{maxHeight:"100px"}}>
+          <Col  >
+          <Card className="card-register">
 
-		  </div>
+            <CardBody>
+                    <h5>Numéro de téléphone</h5><span>{this.state.number}</span>
+            </CardBody>
+         
+          </Card>
+        </Col>
+      
+          
+          </Row>
+          <Row className="justify-content-md-center" style={{maxHeight:"100px"}}>
+          <Col  >
+          <Card className="card-register">
+
+            <CardBody>
+                    <h5>premier question</h5><span>{this.state.firstQuestion}</span>
+            </CardBody>
+         
+          </Card>
+        </Col>
+      
+          
+          </Row>
+          <Row className="justify-content-md-center" style={{maxHeight:"100px"}}>
+          <Col  >
+          <Card className="card-register">
+
+            <CardBody>
+                    <h5>deuxieme question</h5><span>{this.state.secondQuestion}</span>
+            </CardBody>
+         
+          </Card>
+        </Col>
+      
+          
+          </Row>
+          <Row className="justify-content-md-center" style={{maxHeight:"100px"}}>
+          <Col  >
+          <Card className="card-register">
+
+            <CardBody>
+                    <h5>troiseme question</h5><span>{this.state.thridQuestion}</span>
+            </CardBody>
+         
+          </Card>
+        </Col>
+      
+          
+          </Row>
+          <Row   xs="2" className="justify-content-md-center" style={{maxHeight:"100px"}}>
+          <Col  >
+          <Card className="card-register">
+
+            <CardBody>
+                    <h5>votre expression</h5><span>{this.state.expressSection}</span>
+            </CardBody>
+         
+          </Card>
+        </Col>
+      
+          
+          </Row>
+          
+          <Row className="justify-content-md-center" style={{marginTop:"100px" }}>
+          <Col className="text-center"  >
+          <Button style={{fontSize:"16px" ,width:'100%' }}  color="warning" type="button" onClick={this.doLogout}>
+          
+          Se Déconnecter<i  style={{marginLeft:"15px" }}className="fas fa-chevron-right" />
+        </Button>  
+          </Col>
+          </Row>
+          <Row>
+            <img alt="DEEPRESSED" style={{paddingTop:"30px",paddingBottom:'30px',marginRight:"auto",marginLeft:"auto" ,width:'50%' }} src={require('../assets/img/LOGO_BIG-min.png')}></img>
+          </Row>
+          <Row>
+            <Col className="text-center"  >
+          <Button style={{fontSize:"16px" ,width:'100%' }}  color="danger" type="button">
+          
+          Supprimer le compte<i  style={{marginLeft:"15px" }}className="fas fa-chevron-right" />
+        </Button>          </Col>
+          
+          </Row>
+          </Container>
+
+          </div>
+         
       </section>
       {/* Loading */}
       {this.state.isLoading ? (

@@ -9,13 +9,13 @@ import {withRouter} from 'react-router-dom'
 import ReactLoading from 'react-loading'
 
 
-class __PolicyContent extends React.Component {
+class PolicyContent extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
         isLoading: false,
-        policyCheck: localStorage.getItem(AppString.POLICY_CHECK),
+        check: localStorage.getItem(AppString.CHECK),
         id: localStorage.getItem(AppString.ID)
             }
 }
@@ -25,28 +25,28 @@ componentDidMount() {
 }
 
 checkPolicy = async () => {
-if (!localStorage.getItem(AppString.POLICY_CHECK)) {
-  this.setState({isLoading: false}, () => {
-      this.props.history.push('/main')
-  })
-}
+  if (localStorage.getItem(AppString.CHECK === true)) {
+    this.setState({isLoading: false}, () => {
+        this.props.history.push('/main')
+    })
+  }
 }
 
 onNextClick = () => {
   let newInfo
   newInfo = {
-    policyCheck: true
+    check: 'true'
 }
   myFirestore
         .collection(AppString.NODE_USERS)
         .doc(this.state.id)
         .update(newInfo)
         .then(data => {
-            localStorage.setItem(AppString.POLICY_CHECK, this.state.policyCheck)
+            localStorage.setItem(AppString.CHECK, this.state.check)
             this.setState({isLoading: false})
             //this.props.showToast(1, 'Update info success')
         })
-  this.props.history.push('/info')
+  this.props.history.push('/basicInfo')
 }
 
 
@@ -55,7 +55,7 @@ onNextClick = () => {
     return (
       <>
       <div className="section section-typo">
-      <img alt="..." className="path " src={require("assets/img/path1.png")} style={{marginTop:"-500px"}} />
+      <img alt="..." className="path" src={require("assets/img/path1.png")} />
       
         <Container>
         <Row>
@@ -64,7 +64,8 @@ onNextClick = () => {
             alt="..."
             className="mx-auto d-block"
             src={require("assets/img/LOGO_BIG.png")}
-            style={{ width: "230px" }}
+            style={{ width: "230px",marginTop:"10px" }}
+            
           />
             </Col>
           </Row>
@@ -100,14 +101,14 @@ onNextClick = () => {
             <Col>
           
             <Button
-            style={{marginTop:"-25px", backgroundImage: "linear-gradient(to bottom right, #3f51b5, #9c27b0)"}} onClick={this.onNextClick}
+			style={{marginTop:"20px" ,marginBottom:"68px", backgroundImage: "linear-gradient(to bottom right, #3f51b5, #9c27b0)"}} onClick={this.onNextClick}
             className=" btn-round mx-auto d-block"
             color=""
             id="tooltip877922017"
             size="lg"
             target="_blank"
           >
-          J'AI COMPRIS <i style={{fontSize:"24px",marginLeft:"15px", fontWeight:"600", marginRight:"-25px",marginTop:"0px"}}className="tim-icons icon-minimal-right"></i>
+          J'AI COMPRIS <i style={{fontSize:"24px",marginLeft:"15px", fontWeight:"600", marginRight:"-25px",marginTop:"0px"}} className="fas fa-chevron-right"></i>
             
           </Button>
             </Col>
@@ -132,4 +133,4 @@ onNextClick = () => {
   }
 }
 
-export default withRouter(__PolicyContent);
+export default withRouter(PolicyContent);

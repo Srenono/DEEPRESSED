@@ -2,10 +2,11 @@ import moment from 'moment'
 import React, {Component} from 'react'
 import ReactLoading from 'react-loading'
 import 'react-toastify/dist/ReactToastify.css'
-import {myFirestore, myStorage} from '../../Config/MyFirebase'
-import images from '../Themes/Images'
-import './ChatBoard.css'
-import {AppString} from './../Const'
+import {myFirestore, myStorage} from '../conf/MyFirebase'
+import images from '../assets/img/LOGO_S.png'
+
+import {AppString} from '../assets/data/Const'
+import { Container, Row, Col,Card,CardBody,Button} from "reactstrap";
 
 export default class ChatBoard extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ export default class ChatBoard extends Component {
         }
         this.currentUserId = localStorage.getItem(AppString.ID)
         this.currentUserAvatar = localStorage.getItem(AppString.PHOTO_URL)
-        this.currentUserNickname = localStorage.getItem(AppString.NICKNAME)
+        this.currentUserFullname = localStorage.getItem(AppString.FULLNAME)
         this.listMessage = []
         this.currentPeerUser = this.props.currentPeerUser
         this.groupChatId = null
@@ -186,13 +187,9 @@ export default class ChatBoard extends Component {
             <div className="viewChatBoard">
                 {/* Header */}
                 <div className="headerChatBoard">
-                    <img
-                        className="viewAvatarItem"
-                        src={this.currentPeerUser.photoUrl}
-                        alt="icon avatar"
-                    />
+                   
                     <span className="textHeaderChatBoard">
-            {this.currentPeerUser.nickname}
+            {this.currentPeerUser.fullname}
           </span>
                 </div>
 
@@ -212,12 +209,12 @@ export default class ChatBoard extends Component {
 
                 {/* View bottom */}
                 <div className="viewBottom">
-                    <img
+                    <a
                         className="icOpenGallery"
-                        src={images.ic_photo}
+                        
                         alt="icon open gallery"
                         onClick={() => this.refInput.click()}
-                    />
+                    ><i className="fas fa-paper-plane"></i></a>
                     <input
                         ref={el => {
                             this.refInput = el
@@ -230,7 +227,7 @@ export default class ChatBoard extends Component {
 
                     <img
                         className="icOpenSticker"
-                        src={images.ic_sticker}
+                        src={images}
                         alt="icon open sticker"
                         onClick={this.openListSticker}
                     />
@@ -244,12 +241,12 @@ export default class ChatBoard extends Component {
                         }}
                         onKeyPress={this.onKeyboardPress}
                     />
-                    <img
+                    <a
                         className="icSend"
-                        src={images.ic_send}
+                        src={images}
                         alt="icon send"
                         onClick={() => this.onSendMessage(this.state.inputValue, 0)}
-                    />
+                    ><i className="fas fa-paper-plane"></i> </a>
                 </div>
 
                 {/* Loading */}
@@ -275,9 +272,11 @@ export default class ChatBoard extends Component {
                     // Item right (my message)
                     if (item.type === 0) {
                         viewListMessage.push(
+                            <Col md="auto">
                             <div className="viewItemRight" key={item.timestamp}>
                                 <span className="textContentItem">{item.content}</span>
                             </div>
+                            </Col>
                         )
                     } else if (item.type === 1) {
                         viewListMessage.push(
@@ -304,16 +303,13 @@ export default class ChatBoard extends Component {
                     // Item left (peer message)
                     if (item.type === 0) {
                         viewListMessage.push(
+                            
                             <div className="viewWrapItemLeft" key={item.timestamp}>
                                 <div className="viewWrapItemLeft3">
                                     {this.isLastMessageLeft(index) ? (
-                                        <img
-                                            src={this.currentPeerUser.photoUrl}
-                                            alt="avatar"
-                                            className="peerAvatarLeft"
-                                        />
+                                        <div></div>
                                     ) : (
-                                        <div className="viewPaddingLeft"/>
+                                        <div />
                                     )}
                                     <div className="viewItemLeft">
                                         <span className="textContentItem">{item.content}</span>
@@ -389,10 +385,10 @@ export default class ChatBoard extends Component {
         } else {
             return (
                 <div className="viewWrapSayHi">
-                    <span className="textSayHi">Say hi to new friend</span>
+                    <span className="textSayHi">Votre session commance maintenant</span>
                     <img
                         className="imgWaveHand"
-                        src={images}
+                        src={require("../assets/img/LOGO_BIG-min.png")}
                         alt="wave hand"
                     />
                 </div>

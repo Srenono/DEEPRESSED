@@ -1,16 +1,11 @@
 import React from "react";
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import ReactLoading from 'react-loading'
 import {withRouter} from 'react-router-dom'
 import {myFirebase, myFirestore} from '../conf/MyFirebase'
 import {AppString} from '../assets/data/Const'
-import logo from '../assets/img/LOGO_BIG.png'
-import Background from '../assets/img/background_home.jpg'
+import logo from '../assets/img/LOGO_BIG-min.png'
 import 'react-toastify/dist/ReactToastify.css'
-
-
-
-// sections for this page/view
 import { Container, Row, Col ,Button } from "reactstrap";
 
 
@@ -19,7 +14,7 @@ import { Container, Row, Col ,Button } from "reactstrap";
 class Home extends React.Component {
   constructor(props) {
     super(props)
-    this.googleProvider = new firebase.auth.GoogleAuthProvider()
+    this.provider = new firebase.auth.GoogleAuthProvider()
     this.state = {
         isLoading: true
     }
@@ -30,27 +25,36 @@ componentDidMount() {
 }
 
 checkLogin = () => {
-    if (localStorage.getItem(AppString.POLICY_CHECK)) {
+    if (localStorage.getItem(AppString.ID)) {
         this.setState({isLoading: false}, () => {
             this.setState({isLoading: false})
-            this.props.showToast(1, 'Login success')
+            //this.props.showToast(1, 'Login success')
             this.props.history.push('/main')
         })
-    } else if(localStorage.getItem(AppString.ID)){
-        this.props.history.push('/policy')
-        this.setState({isLoading: false})
-    }else{
-        this.props.history.push('/')
+    } else {
         this.setState({isLoading: false})
     }
 }
 
+onGoogleClick = () =>{
+    this.provider = new firebase.auth.GoogleAuthProvider()
+    this.onLoginPress()
+}
+
+onFacebookClick = () =>{
+    this.provider = new firebase.auth.FacebookAuthProvider()
+    this.onLoginPress()
+}
+onNumberClick = () =>{
+    this.props.history.push('/phoneSignin')
+}
+
+
 onLoginPress = () => {
-    
     this.setState({isLoading: true})
     myFirebase
         .auth()
-        .signInWithPopup(this.googleProvider)
+        .signInWithPopup(this.provider)
         .then(async result => {
             let user = result.user
             if (user) {
@@ -66,7 +70,7 @@ onLoginPress = () => {
                         .doc(user.uid)
                         .set({
                             id: user.uid,
-                            number: '',
+                            number: '0611223344',
                             fullName: user.displayName,
                             sexe:'',
                             dateOfBirth:'',
@@ -74,15 +78,16 @@ onLoginPress = () => {
                             secondQuestion:'',
                             thirdQuestion:'',
                             expressSection: '',
-                            policyCheck: false,
+                            check: '',
                             photoUrl: user.photoURL
                         })
                         .then(data => {
                             // Write user info to local
                             localStorage.setItem(AppString.ID, user.uid)
+                            localStorage.setItem(AppString.NUMBER, user.number)
                             localStorage.setItem(AppString.FULLNAME, user.displayName)
                             localStorage.setItem(AppString.PHOTO_URL, user.photoURL)
-                            localStorage.setItem(AppString.POLICY_CHECK, user.policyCheck)
+                            localStorage.setItem(AppString.CHECK, user.check)
                             localStorage.setItem(AppString.NODE_USERS, 'users')
 
                             this.setState({isLoading: false}, () => {
@@ -100,6 +105,10 @@ onLoginPress = () => {
                     localStorage.setItem(
                         AppString.PHOTO_URL,
                         result.docs[0].data().photoUrl
+                    )
+                    localStorage.setItem(
+                        AppString.NUMBER,
+                        result.docs[0].data().number
                     )
                     localStorage.setItem(
                         AppString.SEXE,
@@ -126,8 +135,8 @@ onLoginPress = () => {
                         result.docs[0].data().expressSection
                     )
                     localStorage.setItem(
-                        AppString.POLICY_CHECK,
-                        result.docs[0].data().policyCheck
+                        AppString.CHECK,
+                        result.docs[0].data().check
                     )
                     
                     this.setState({isLoading: false}, () => {
@@ -140,53 +149,34 @@ onLoginPress = () => {
             }
         })
         .catch(err => {
-            console.log(err.message)
+            this.props.showToast(0, err.message)
             this.setState({isLoading: false})
         })
 }
 
     render() {
-		var sectionStyle = {
-		width: "100%",
-		height: "100vh",
-		backgroundImage: `url(${Background})`,
-		backgroundRepeat: 'no-repeat',
-		backgroundPosition: 'center',
-		color:'neutral'
-		};
+
       return (
-        
-		   <section style={ sectionStyle }>
+
+		   <section className="home-background">
 		<div  >
 		<Container >
-		
+
 			  <Row className="justify-content-md-center">
 			   <Col className="text-center" lg="8" md="12">
-                <img  alt="DEEPRESSED" src={logo}  style={{ width: "250px" ,marginTop:"16%"}} /> 
+                <img className="home-logo" alt="DEEPRESSED" src={logo}   /> 
 
             </Col>
             <Col className="text-center" lg="8" md="12">
-              <h3 className="title" style={{ color: "#757575"}}>
+              <h4 className="title" style={{ color: "#757575"}}>
                 Commancer gratuitement votre session de psychologie maintenant!
-              </h3>
-              <h4 className="description"  style={{ color: "#FFFFFF"}}>
-                En cliquant sur connexion vous acceptez nos condition d'utilisation. Consulter notre politique de confidientailité pour plus d'information
               </h4>
+              <h5 className="description"  style={{ color: "#FFFFFF"}}>
+                En cliquant sur connexion vous acceptez nos condition d'utilisation. Consulter notre politique de confidientailité pour plus d'information
+              </h5>
             </Col>
             {this.state.isLoading ? (
-              <div 
-              style={{ 
-                position: "absolute",
-                top: "0",
-                bottom: "0",
-                left: "0",
-                right: "0",
-                backgroundColor: "rgba(255, 255, 255, 0.5)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }} 
-              >
+              <div className="home-loading">
                   <ReactLoading
                       type={'spin'}
                       color={'#203152'}
@@ -201,9 +191,9 @@ onLoginPress = () => {
                 color="neutral"
                 role="button"
                 size="lg"
-                onClick={this.onLoginPress}
+                onClick={this.onGoogleClick}
               >
-				<img   alt="G" src={require("assets/img/G.png")}  style={{ width: "20px" ,marginRight: "20%",marginLeft: "-22%"}} /> 
+				<img   alt="G" src={require("assets/img/G.png")}  className="home-login-img" /> 
 				 LOG IN  AVEC GOOGLE
               </Button>
 			  </Col>
@@ -213,8 +203,10 @@ onLoginPress = () => {
                 color="neutral"
                 role="button"
                 size="lg"
+				onClick={this.onFacebookClick}
+
               >
-				<img  alt="F" src={require("assets/img/F.png")}  style={{ width: "20px" ,marginRight: "20%",marginLeft: "-22%"}} /> 
+				<img  alt="F" src={require("assets/img/F.png")}  className="home-login-img" /> 
 				 LOG IN AVEC FACEBOOK 
               </Button>
 			  </Col>
@@ -224,8 +216,9 @@ onLoginPress = () => {
                 color="neutral"
                 role="button"
                 size="lg"
+                onClick={this.onNumberClick}
               >
-				<img  alt="S" src={require("assets/img/S.png")}  style={{ width: "20px" ,marginRight: "20%",marginLeft: "-22%"}} /> 
+				<img  alt="S" src={require("assets/img/S.png")}  className="home-login-img" /> 
 				 LOG IN AVEC NUMERO
               </Button>
 			  </Col>

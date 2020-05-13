@@ -6,7 +6,12 @@ import Main from "../views/Main";
 import Profile from "../views/Profile";
 import Policy from 'views/Policy';
 import BasicInfoForm from 'views/BasicInfoForm';
+import PsycInfoForm from 'views/PsycInfoForm';
 import {toast, ToastContainer} from 'react-toastify'
+import PhoneSignin from 'views/PhoneSignin';
+import Sessions from 'views/Sessions';
+import Chat from 'views/Chat';
+
 
 
 
@@ -34,7 +39,7 @@ class Root extends Component {
             <BrowserRouter>
                 <div>
                 <ToastContainer
-                autoClose={2000}
+                autoClose={8000}
                 hideProgressBar={true}
                 position={toast.POSITION.BOTTOM_RIGHT}
             />
@@ -45,13 +50,24 @@ class Root extends Component {
                             render={props => <Home showToast={this.showToast} {...props} />}
                         />
                         <Route
+                            exact
+                            path="/phoneSignin"
+                            render={props => <PhoneSignin showToast={this.showToast} {...props} />}
+                        />
+                       
+                        <Route
                         exact
                         path="/policy"
                         render={props => <Policy showToast={this.showToast} {...props} />}
                     />
                     <Route
                         exact
-                        path="/info"
+                        path="/psycInfo"
+                        render={props => <PsycInfoForm  showToast={this.showToast} {...props} />}
+                    />
+                    <Route
+                        exact
+                        path="/basicInfo"
                         render={props => <BasicInfoForm  showToast={this.showToast} {...props} />}
                     />
                         <Route
@@ -64,6 +80,16 @@ class Root extends Component {
                         path="/profile"
                         render={props => <Profile showToast={this.showToast} {...props} />}
                     />
+                    <Route
+                    exact
+                    path="/sessions"
+                    render={props => <Sessions showToast={this.showToast} {...props} />}
+                />
+                <Route
+                    exact
+                    path="/chat"
+                    render={props => <Chat showToast={this.showToast} {...props} />}
+                />
 				<Redirect  to="/" />
                     </Switch>
                 </div>

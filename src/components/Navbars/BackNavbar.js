@@ -1,37 +1,18 @@
 
 import React from "react";
-import { Link } from "react-router-dom";
 // reactstrap components
-import {
-  Button,
-  Collapse,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  NavbarBrand,
-  Navbar,
-  NavItem,
-  NavLink,
-  Nav,
-  Container,
-  Row,
-  Col,
-  UncontrolledTooltip
-} from "reactstrap";
+import {Navbar,Container} from "reactstrap";
 
 import 'assets/css/style.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import profile from "assets/img/user-off.svg";
-import logoS from "assets/img/main_on.png";
-import Profile from "../../views/Profile";
+
 import {withRouter} from 'react-router-dom'
+import {myFirebase} from '../../conf/MyFirebase'
 
 
 
 
 
-class IndexNavbar extends React.Component {
+class CancelNavbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,15 +21,26 @@ class IndexNavbar extends React.Component {
     };
   }
 
-  onProfileClick = () => {
-    this.props.history.push('/Profile')
+  doLogout = () => {
+    this.setState({isLoading: true})
+    myFirebase
+        .auth()
+        .signOut()
+        .then(() => {
+            this.setState({isLoading: false}, () => {
+                localStorage.clear()
+                //.props.showToast(1, 'Logout success')
+                this.props.history.push('/')
+            })
+        })
+        .catch(function (err) {
+            this.setState({isLoading: false})
+           // this.props.showToast(0, err.message)
+        })
 }
-onMainClick = () => {
-  this.props.history.push('/Main')
-}
-onChatClick = () => {
-  this.props.history.push('/Profile')
-}
+ 
+
+
 
   /*
   componentDidMount() {
@@ -100,42 +92,21 @@ onChatClick = () => {
         color-on-scroll="100"
         expand="lg"
       >*/
-      <Navbar style={{boxShadow: "0 2px 2px -2px rgba(0,0,0,.2)"}}className="fixed-top bg-neutral" expand="lg">
+      <Navbar className="fixed-top navbar-transparent" expand="lg">
       <Container style={{height:"45px"}}>
 
 
-        <nav  expand="lg" className="fixed-top navbar-dark navbar-expand justify-content-center" style={{paddingTop: "12px"}} Navbar>
+        <nav  expand="lg" className="fixed-top navbar-dark navbar-expand justify-content-center" style={{paddingTop: "12px"}} >
         <div className="container" >
         <ul className="navbar-nav nav-justified w-150 text-center"  >
         <li className="nav-item"  >
-        <img
-        style={{color:"#bcbcbc",width:"54px",cursor:"pointer", marginLeft:"-50%",marginTop:"0px" }} 
-        
-        alt="An icon logout"
-        src={profile}
-        onClick={this.onProfileClick}
-                    >
-    
-    </img>
-        </li> 
-        <li className="nav-item">
-        <img
-            style={{color:"#bcbcbc",width:"54px",cursor:"pointer", marginTop:"0px" }} 
-            onClick={this.onMainClick}
-            alt="An icon logout"
-            src={logoS}
-                        >
-        
-        </img>
-        </li> 
-        <li className="nav-item">
         <i 
-        style={{color:"#bcbcbc",fontSize:"44px",marginRight:"-50%",marginTop:"7px"
-        ,cursor:"pointer"}} 
-        className="fas fa-comment"></i>
-        
+        style={{color:"#fff",fontSize:"28px",marginLeft:"-85%",marginTop:"5px",display:"inline-block",borderRadius: "60px",padding:" 0.3em 0.3em",border:"2px solid #fff",cursor:"pointer"}} 
+        className="tim-icons icon-simple-remove"
+        onClick={this.doLogout}>
+        </i>
         </li> 
-        </ul>
+       </ul>
     </div>
 </nav>
 </Container>
@@ -145,4 +116,4 @@ onChatClick = () => {
   }
 }
 
-export default withRouter(IndexNavbar);
+export default withRouter(CancelNavbar);

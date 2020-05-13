@@ -86,6 +86,7 @@ class Main extends Component {
                     viewListUser.push(
                         <button
                             key={index}
+
                             className={
                                 this.state.currentPeerUser &&
                                 this.state.currentPeerUser.id === item.data().id
@@ -94,6 +95,7 @@ class Main extends Component {
                             }
                             onClick={() => {
                                 this.setState({currentPeerUser: item.data()})
+                                console.log(index)
                             }}
                         >
                             <img

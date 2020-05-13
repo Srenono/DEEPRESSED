@@ -129,8 +129,7 @@
 }
 
 .viewListUser::-webkit-scrollbar-track {
-    padding: 2px 0;
-    background-color: #e8e8e8;
+    padding: 4px 0;
 }
 
 .viewListUser::-webkit-scrollbar {
@@ -138,7 +137,7 @@
 }
 
 .viewListUser::-webkit-scrollbar-thumb {
-    border-radius: 10px;
+    border-radius: 16px;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #203152;
 }
@@ -147,19 +146,18 @@
     border: none;
     display: flex;
     flex-direction: row;
-    background-color: #ffffff;
-    width: 330px;
     padding: 10px;
     align-items: center;
     justify-content: center;
+	border-radius: 12px;
+    margin-bottom: 12px;
+	margin-left:20px
 }
 
 .viewWrapItemFocused {
     border: none;
     display: flex;
     flex-direction: row;
-    background-color: #e8e8e8;
-    width: 330px;
     padding: 10px;
     align-items: center;
     justify-content: center;
@@ -177,7 +175,6 @@
     display: flex;
     flex: 1;
     margin-left: 15px;
-    color: #203152;
     word-wrap: break-word;
 }
 

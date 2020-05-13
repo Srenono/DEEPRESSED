@@ -1,5 +1,4 @@
 import React from "react";
-import firebase from 'firebase'
 import ReactLoading from 'react-loading'
 import {withRouter} from 'react-router-dom'
 import {myFirebase, myFirestore} from '../conf/MyFirebase'
